@@ -41,7 +41,7 @@ export const initChartOptions = (data: number[]): ChartOptions<"line"> => {
     return {
         scales: {
             y: {
-                min: 0,
+                min: 100,
                 max: max,
                 beginAtZero: true,
                 ticks: {
