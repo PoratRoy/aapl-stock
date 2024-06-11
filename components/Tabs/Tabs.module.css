@@ -1,0 +1,42 @@
+.tabsContainer{
+    position: relative;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60vw;
+    width: 90%;
+    min-height: 70vh;
+    height: 60%;
+    border: 1px solid #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabsSections{
+    position: relative;
+    border-bottom: 1px solid #000;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tab{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    background-color: #eeeeee;
+    text-align: center;
+}
+
+.tab:hover{
+    cursor: pointer;
+    background-color: #dddddd;
+}
+
+.tabContent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
