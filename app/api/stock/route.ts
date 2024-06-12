@@ -21,16 +21,13 @@ const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue
     if (response) {
         const data = (await response.json()) as FxempireResponse[];
         if (data) {
-            return data.map((item: FxempireResponse) => ({
-                StartDate: item.StartTime,
-                StartTime: item.StartTime,
-                Open: item.Open,
-                High: item.High,
-                Low: item.Low,
-                Close: item.Close,
-                Volume: item.Volume,
-                Date: `${item.StartDate} ${item.StartTime}`,
-            }));
+            return data.map(
+                (item: FxempireResponse) =>
+                    ({
+                        price: item.Close,
+                        date: `${item.StartDate} ${item.StartTime}`,
+                    }) as StockValue,
+            );
         }
     }
     return [];

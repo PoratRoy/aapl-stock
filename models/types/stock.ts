@@ -32,12 +32,6 @@ export type FxempireResponse = {
 };
 
 export type StockValue = {
-    StartDate: string;
-    StartTime: string;
-    Open: number;
-    High: number;
-    Low: number;
-    Close: number;
-    Volume: number;
-    Date: string;
+    price: number;
+    date: string;
 };
