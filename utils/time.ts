@@ -3,19 +3,19 @@ export const currentTime = (): string => {
     return formatDate(date);
 };
 
-export const getDateBefore = (days: number = 3): string => {
+export const getDateBefore = (days: number = 1): string => {
     const date = new Date();
     date.setDate(date.getDate() - days);
     return formatDate(date);
 };
 
-export const getDateBeforeMonths = (months: number = 3): string => {
+export const getDateBeforeMonths = (months: number = 1): string => {
     const date = new Date();
     date.setMonth(date.getMonth() - months);
     return formatDate(date);
 };
 
-export const getDateBeforeYears = (years: number = 3): string => {
+export const getDateBeforeYears = (years: number = 1): string => {
     const date = new Date();
     date.setFullYear(date.getFullYear() - years);
     return formatDate(date);

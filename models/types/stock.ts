@@ -1,10 +1,12 @@
+import { TimePeriod, TimePrecision } from "./common";
+
 export type FxempireRequestParams = {
     identifier: string;
     identifierType: string;
     adjustmentMethod: string;
     includeExtended: string;
-    period: string;
-    precision: string;
+    period: TimePeriod;
+    precision: TimePrecision;
     startTime: string;
     endTime: string;
 };

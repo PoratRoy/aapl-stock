@@ -1,5 +1,7 @@
+import { TimePeriod, TimePrecision } from "@/models/types/common";
 import { FxempireRequestParams, FxempireResponse, StockValue } from "@/models/types/stock";
-import { currentTime } from "@/utils/time";
+import { currentTime, getDateBefore } from "@/utils/time";
+import { NextRequest, NextResponse } from "next/server";
 
 const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue[]> => {
     const rootUrl = "https://test.fxempire.com/api/v1/en/stocks/chart/candles";
@@ -34,22 +36,26 @@ const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue
     return [];
 };
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
+    const startTime = req?.nextUrl.searchParams.get("startTime") as string | undefined;
+    const period = req?.nextUrl.searchParams.get("period") as TimePeriod | undefined;
+    const precision = req?.nextUrl.searchParams.get("precision") as TimePrecision | undefined;
+
     const params: FxempireRequestParams = {
         identifier: "AAPL.XNAS",
         identifierType: "Symbol",
         adjustmentMethod: "All",
         includeExtended: "false",
-        period: "30",
-        precision: "Minutes",
-        startTime: "02/22/2023",
+        period: period || "1",
+        precision: precision || "Minutes",
+        startTime: startTime || getDateBefore(1),
         endTime: currentTime(),
     };
     try {
         const stocks = await fetchStockData(params);
-        return new Response(JSON.stringify(stocks), { status: 200 });
+        return NextResponse.json(stocks);
     } catch (error) {
         console.error("Fetch error:", error);
-        return new Response(JSON.stringify({ message: "Failed to fetch data" }), { status: 500 });
+        return NextResponse.json({ message: "Failed to fetch data" }, { status: 500 });
     }
 };
