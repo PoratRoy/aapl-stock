@@ -3,12 +3,13 @@ import React from "react";
 import Timeframe from "../Timeframe";
 import Chart from "../Chart";
 import useSetChartData from "@/hooks/useSetChartData";
+import styles from "./OverviewTab.module.css";
 
 const OverviewTab = () => {
     const { handleChangeTimeframe, chartData, selectedTimeframe, isLoading } = useSetChartData();
 
     return (
-        <section>
+        <section className={styles.overview}>
             <Chart chartData={chartData} isLoading={isLoading} />
             <Timeframe
                 handleChangeTimeframe={handleChangeTimeframe}

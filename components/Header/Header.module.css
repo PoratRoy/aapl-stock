@@ -1,0 +1,45 @@
+.header {
+    position: relative;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 5vh;
+    padding: 2vh 10vw;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.headerRight {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    line-height: 1.6;
+}
+
+.headerLeft {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.6;
+}
+
+.headerLeft div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.headerLeft h2 {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.headerLeft h2 span {
+    color: var(--success-color);
+    font-size: 16px;
+}

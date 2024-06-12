@@ -1,25 +1,49 @@
 .timeframeContainer {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 2vw;
+    box-sizing: border-box;
 }
 
 .timeOption,
 .timeOptionSelected {
-    margin-top: 20px;
-    padding: 5px 10px;
+    width: 70px;
     box-sizing: border-box;
-    width: 100%;
+    padding: 5px 0;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
 }
 
 .timeOption {
-    background-color: #898989;
+    background-color: var(--btn-color);
+    color: var(--tab-color);
+}
+
+.timeOption:hover {
+    background-color: var(--btn-color-hover);
 }
 
 .timeOptionSelected {
-    background-color: #f0f0f0;
+    background-color: var(--tab-color);
+    color: var(--text-color);
+}
+
+.timeOptionSelected:hover {
+    background-color: var( --tab-color-hover);
+}
+
+@media (min-width: 550px) {
+    .timeframeContainer {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: unset;
+        gap: 12px;
+        padding: 0;
+    }
+
 }
