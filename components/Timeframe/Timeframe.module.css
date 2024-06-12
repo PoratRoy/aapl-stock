@@ -1,0 +1,17 @@
+.timeframeContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.timeOption{
+    margin-top: 20px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #898989;
+    text-align: center;
+}

@@ -1,4 +1,5 @@
 import { FxempireRequestParams, FxempireResponse, StockValue } from "@/models/types/stock";
+import { currentTime } from "@/utils/time";
 
 const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue[]> => {
     const rootUrl = "https://test.fxempire.com/api/v1/en/stocks/chart/candles";
@@ -41,8 +42,8 @@ export const GET = async () => {
         includeExtended: "false",
         period: "30",
         precision: "Minutes",
-        endTime: "03/01/2023",
         startTime: "02/22/2023",
+        endTime: currentTime(),
     };
     try {
         const stocks = await fetchStockData(params);

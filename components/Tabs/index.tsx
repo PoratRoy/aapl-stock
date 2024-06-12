@@ -1,13 +1,13 @@
 "use client";
 import { TabOption } from "@/models/types/common";
 import React, { useState } from "react";
-import Chart from "../Chart";
+import OverviewTab from "../OverviewTab";
 import HistoryTab from "../HistoryTab";
 import styles from "./Tabs.module.css";
 
 const Tabs: React.FC = () => {
     const tabs: TabOption[] = [
-        { title: "Overview", content: <Chart /> },
+        { title: "Overview", content: <OverviewTab /> },
         { title: "History", content: <HistoryTab /> },
     ];
     const [tabContent, setTabContent] = useState<React.ReactNode>(
