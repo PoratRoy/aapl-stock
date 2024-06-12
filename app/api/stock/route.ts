@@ -1,10 +1,10 @@
 import { TimePeriod, TimePrecision } from "@/models/types/time";
 import { FxempireRequestParams, FxempireResponse, StockValue } from "@/models/types/stock";
-import { currentTime, getDateBefore } from "@/utils/time";
 import { NextRequest, NextResponse } from "next/server";
+import { FxEmpireRootURL, SearchParams } from "@/models/constant/fetch";
+import { setFxempireRequest } from "@/models/init/fetch";
 
 const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue[]> => {
-    const rootUrl = "https://test.fxempire.com/api/v1/en/stocks/chart/candles";
     const {
         identifier,
         identifierType,
@@ -16,7 +16,7 @@ const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue
         endTime,
     } = params;
 
-    const url = `${rootUrl}?Identifier=${identifier}&IdentifierType=${identifierType}&AdjustmentMethod=${adjustmentMethod}&IncludeExtended=${includeExtended}&period=${period}&Precision=${precision}&StartTime=${startTime}&EndTime=${endTime}%2023:59`;
+    const url = `${FxEmpireRootURL}?Identifier=${identifier}&IdentifierType=${identifierType}&AdjustmentMethod=${adjustmentMethod}&IncludeExtended=${includeExtended}&period=${period}&Precision=${precision}&StartTime=${startTime}&EndTime=${endTime}%2023:59`;
     const response = await fetch(url);
     if (response) {
         const data = (await response.json()) as FxempireResponse[];
@@ -25,7 +25,7 @@ const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue
                 (item: FxempireResponse) =>
                     ({
                         price: item.Close,
-                        date: `${item.StartDate} ${item.StartTime}`,
+                        date: item.StartDate,
                     }) as StockValue,
             );
         }
@@ -34,21 +34,14 @@ const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue
 };
 
 export const GET = async (req: NextRequest) => {
-    const startTime = req?.nextUrl.searchParams.get("startTime") as string | undefined;
-    const period = req?.nextUrl.searchParams.get("period") as TimePeriod | undefined;
-    const precision = req?.nextUrl.searchParams.get("precision") as TimePrecision | undefined;
+    const startTime = req?.nextUrl.searchParams.get(SearchParams.startTime) as string | undefined;
+    const period = req?.nextUrl.searchParams.get(SearchParams.period) as TimePeriod | undefined;
+    const precision = req?.nextUrl.searchParams.get(SearchParams.precision) as
+        | TimePrecision
+        | undefined;
 
-    const params: FxempireRequestParams = {
-        identifier: "AAPL.XNAS",
-        identifierType: "Symbol",
-        adjustmentMethod: "All",
-        includeExtended: "false",
-        period: period || "1",
-        precision: precision || "Minutes",
-        startTime: startTime || getDateBefore(1),
-        endTime: currentTime(),
-    };
     try {
+        const params: FxempireRequestParams = setFxempireRequest(period, precision, startTime);
         const stocks = await fetchStockData(params);
         return NextResponse.json(stocks);
     } catch (error) {

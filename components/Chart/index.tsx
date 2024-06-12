@@ -13,6 +13,7 @@ import { initChartData, initChartOptions } from "@/utils/chart";
 import { Line } from "react-chartjs-2";
 import styles from "./Chart.module.css";
 import { StockChartData } from "@/models/types/chart";
+import Loading from "../Loading/Loading";
 
 type ChartProps = {
     chartData: StockChartData;
@@ -28,13 +29,13 @@ const Chart = ({ chartData, isLoading }: ChartProps) => {
         LineElement,
         Legend,
         Tooltip,
-        Filler
+        Filler,
     );
 
     return (
         <section className={styles.chartContainer}>
             <Line data={initChartData(chartData)} options={initChartOptions(chartData.data)} />
-            {isLoading ? <div className={styles.loading}>Loading...</div> : null}
+            {isLoading ? <Loading /> : null}
         </section>
     );
 };
