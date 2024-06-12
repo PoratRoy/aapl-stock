@@ -1,8 +1,8 @@
 "use client"
-import { TimeOption, TimeValue } from "@/models/types/common";
+import { TimeOption, TimeValue } from "@/models/types/time";
+import { timeOptions } from "@/models/resource/options";
 import styles from "./Timeframe.module.css";
 import React from "react";
-import { timeOptions } from "@/models/resource/options";
 
 type TimeframeProps = {
     handleChangeTimeframe: (timeframe: TimeValue) => Promise<void>;

@@ -1,4 +1,4 @@
-import { TimePeriod, TimePrecision } from "@/models/types/common";
+import { TimePeriod, TimePrecision } from "@/models/types/time";
 import { FxempireRequestParams, FxempireResponse, StockValue } from "@/models/types/stock";
 import { currentTime, getDateBefore } from "@/utils/time";
 import { NextRequest, NextResponse } from "next/server";

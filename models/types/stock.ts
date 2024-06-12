@@ -1,4 +1,4 @@
-import { TimePeriod, TimePrecision } from "./common";
+import { TimePeriod, TimePrecision } from "./time";
 
 export type FxempireRequestParams = {
     identifier: string;

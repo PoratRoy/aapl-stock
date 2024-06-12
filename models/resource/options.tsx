@@ -1,7 +1,8 @@
 import { getDateBefore, getDateBeforeMonths, getDateBeforeYears } from "@/utils/time";
-import { TabOption, TimeOption } from "../types/common";
+import { TimeOption } from "../types/time";
 import OverviewTab from "@/components/OverviewTab";
 import HistoryTab from "@/components/HistoryTab";
+import { TabOption } from "../types/common";
 
 export const timeOptions: TimeOption[] = [
     { value: { startTime: getDateBefore(1), period: "1", precision: "Minutes" }, label: "1D" },
