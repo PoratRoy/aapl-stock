@@ -11,11 +11,10 @@ const Header: React.FC = () => {
             </div>
             <div className={styles.headerLeft}>
                 <h2>
-                    <span className={styles.arrow}>▲</span>
+                    <span>▲</span>
                     {stockHeaderData.currentPrice}
                 </h2>
                 <div>
-                    <p>{stockHeaderData.currentPrice}</p>
                     <p>{stockHeaderData.priceChange}</p>
                     <p>{stockHeaderData.percentChange}</p>
                 </div>

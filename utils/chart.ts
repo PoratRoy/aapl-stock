@@ -1,10 +1,11 @@
+import { CHART_FILL_COLOR, PRIMARY_COLOR, TEXT_COLOR_SECONDARY } from "@/models/constant/color";
 import { StockChartData } from "@/models/types/chart";
 import type { ChartData, ChartOptions, Point } from "chart.js";
 import { TooltipItem } from "chart.js";
 
 export function tooltipTitle(tooltipItems: TooltipItem<"line">[]): string {
     if (tooltipItems.length === 1) {
-        return tooltipItems[0].label || ""; 
+        return tooltipItems[0].label || "";
     }
     return "";
 }
@@ -14,8 +15,9 @@ export const initChartData = (chartData: StockChartData): ChartData<"line"> => {
         labels: chartData.labels,
         datasets: [
             {
-                borderColor: `#00aeff`,
+                borderColor: PRIMARY_COLOR,
                 fill: true,
+                backgroundColor: CHART_FILL_COLOR,
                 pointRadius: 0,
                 borderWidth: 2,
                 data: chartData.data,
@@ -25,57 +27,31 @@ export const initChartData = (chartData: StockChartData): ChartData<"line"> => {
 };
 
 export const initChartOptions = (data: number[]): ChartOptions<"line"> => {
-    let max: number = 300;
-
-    if (data.length != 0) {
-        const resMaxTx = Math.max(
-            ...data.map((row) => {
-                return row;
-            }),
-        );
-        if (resMaxTx !== 0) {
-            max = Math.ceil(resMaxTx / 50) * 50;
-        }
-    }
-
     return {
         scales: {
             y: {
-                min: 100,
-                max: max,
-                beginAtZero: true,
-                ticks: {
-                    color: "#c7c7c7",
-                },
-                title: {
-                    display: true,
-                    text: "Price",
-                    color: "#c7c7c7",
-                },
+                beginAtZero: false,
+                ticks: { color: TEXT_COLOR_SECONDARY },
+                title: { display: false },
             },
             x: {
-                ticks: {
-                    color: "#c7c7c7",
-                },
-                grid: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: "Date",
-                    color: "#c7c7c7",
-                },
+                ticks: { color: TEXT_COLOR_SECONDARY },
+                grid: { display: false },
+                title: { display: false },
             },
         },
         plugins: {
             tooltip: {
+                enabled: true,
                 callbacks: {
                     title: tooltipTitle,
+                    label: (context) => {
+                        const value = context.parsed.y;
+                        return `${value}`;
+                    },
                 },
             },
-            legend: {
-                display: false,
-            },
+            legend: { display: false },
         },
         responsive: true,
         interaction: {

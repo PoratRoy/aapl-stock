@@ -3,6 +3,7 @@ import { FxempireRequestParams, FxempireResponse, StockValue } from "@/models/ty
 import { NextRequest, NextResponse } from "next/server";
 import { FxEmpireRootURL, SearchParams } from "@/models/constant/fetch";
 import { setFxempireRequest } from "@/models/init/fetch";
+import { shortFormatDate, shortFormatTime } from "@/utils/time";
 
 const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue[]> => {
     const {
@@ -21,13 +22,16 @@ const fetchStockData = async (params: FxempireRequestParams): Promise<StockValue
     if (response) {
         const data = (await response.json()) as FxempireResponse[];
         if (data) {
-            return data.map(
-                (item: FxempireResponse) =>
-                    ({
-                        price: item.Close,
-                        date: item.StartDate,
-                    }) as StockValue,
-            );
+            return data.map((item: FxempireResponse) => {
+                const date =
+                    precision === "Minutes"
+                        ? shortFormatTime(item.StartTime)
+                        : shortFormatDate(item.StartDate);
+                return {
+                    price: item.Close,
+                    date,
+                } as StockValue;
+            });
         }
     }
     return [];

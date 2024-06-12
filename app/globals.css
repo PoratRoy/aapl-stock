@@ -6,6 +6,7 @@
   --background-color: #070707;
   --primary-color: #00aeff;
   --text-color: #f0f0f0;
+  --text-color-secondary: #c7c7c7;
 
   --tab-color: #2a2a2a;
   --tab-color-hover: #353535;
@@ -16,6 +17,8 @@
   --btn-selected-color: #a8a8a8;
 
   --loading-bg-color: #82828280;
+
+  --chart-fill-color: #00aeff33;
 
   --success-color: #0f8d0f;
   --error-color: #b50909;
