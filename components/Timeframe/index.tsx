@@ -1,19 +1,27 @@
-"use client"
-import { TimeOption, TimeValue } from "@/models/types/time";
+"use client";
+import { TimeOption } from "@/models/types/time";
 import { timeOptions } from "@/models/resource/options";
 import styles from "./Timeframe.module.css";
 import React from "react";
 
 type TimeframeProps = {
-    handleChangeTimeframe: (timeframe: TimeValue) => Promise<void>;
+    selectedTimeframe: TimeOption;
+    handleChangeTimeframe: (timeframe: TimeOption) => Promise<void>;
 };
 
-const Timeframe = ({ handleChangeTimeframe }: TimeframeProps) => {
+const Timeframe = ({ handleChangeTimeframe, selectedTimeframe }: TimeframeProps) => {
     const Time = (option: TimeOption) => {
         return (
-            <div className={styles.timeOption} onClick={() => handleChangeTimeframe(option.value)}>
+            <button
+                onClick={() => handleChangeTimeframe(option)}
+                className={
+                    selectedTimeframe.label === option.label
+                        ? styles.timeOptionSelected
+                        : styles.timeOption
+                }
+            >
                 {option.label}
-            </div>
+            </button>
         );
     };
 

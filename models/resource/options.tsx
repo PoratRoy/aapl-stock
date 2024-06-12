@@ -13,7 +13,7 @@ export const timeOptions: TimeOption[] = [
     { value: { startTime: getDateBeforeMonths(6), period: "30", precision: "Hours" }, label: "6M" },
     { value: { startTime: getDateBeforeYears(1), period: "24", precision: "Hours" }, label: "1Y" },
     { value: { startTime: getDateBeforeYears(2), period: "24", precision: "Hours" }, label: "2Y" },
-    { value: { startTime: getDateBeforeYears(5), period: "48", precision: "Hours" }, label: "5Y" },
+    { value: { startTime: getDateBeforeYears(4), period: "48", precision: "Hours" }, label: "4Y" },
 ];
 
 export const tabs: TabOption[] = [
