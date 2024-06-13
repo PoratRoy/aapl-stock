@@ -13,7 +13,7 @@ import { initChartData, initChartOptions } from "@/utils/chart";
 import { Line } from "react-chartjs-2";
 import styles from "./Chart.module.css";
 import { StockChartData } from "@/models/types/chart";
-import LoadingChart from "../loading/LoadingChart";
+import LoadingChart from "../Loading/LoadingChart";
 
 type ChartProps = {
     chartData: StockChartData;

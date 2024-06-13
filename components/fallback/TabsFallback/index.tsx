@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./TabsFallback.module.css";
-import LoadingUI from "@/components/loading/LoadingUI";
+import LoadingUI from "@/components/Loading/LoadingUI";
 
 const TabsFallback: React.FC = () => {
     return (

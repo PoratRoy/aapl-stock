@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LoadingChart.module.css";
-import LoadingUI from "../LoadingUI";
 import { TEXT_COLOR_SECONDARY } from "@/models/constant/color";
+import LoadingUI from "../LoadingUI";
 
 const LoadingChart = () => {
     return (
