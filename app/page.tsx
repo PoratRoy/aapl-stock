@@ -1,12 +1,14 @@
 import Tabs from "@/components/Tabs";
 import styles from "./page.module.css";
+import { Suspense } from "react";
+import TabsFallback from "@/components/fallback/TabsFallback";
 
-const Home = () => {
+export default function Home() {
     return (
         <main className={styles.main}>
-            <Tabs />
+            <Suspense fallback={<TabsFallback />}>
+                <Tabs />
+            </Suspense>
         </main>
     );
-};
-
-export default Home;
+}

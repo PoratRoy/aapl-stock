@@ -1,13 +1,18 @@
 "use client";
 import { TabOption } from "@/models/types/common";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Tabs.module.css";
 import { tabs } from "@/models/resource/options";
+import Link from "next/link";
+import useQueryParams from "@/hooks/useQueryParams";
 
 const Tabs: React.FC = () => {
-    const [tabContent, setTabContent] = useState<React.ReactNode>(
-        tabs[0].content as React.ReactNode,
-    );
+    const [tabContent, setTabContent] = useState<any>();
+    const { getCurrentTab } = useQueryParams();
+
+    useEffect(() => {
+        setTabContent(getCurrentTab());
+    }, []);
 
     const handleChangeTab = (tab: TabOption) => {
         setTabContent(tab.content);
@@ -15,9 +20,15 @@ const Tabs: React.FC = () => {
 
     const Tab = (option: TabOption) => {
         return (
-            <div className={styles.tab} onClick={() => handleChangeTab(option)}>
+            <Link
+                className={styles.tab}
+                onClick={() => handleChangeTab(option)}
+                href={{
+                    query: { tab: option.path },
+                }}
+            >
                 {option.title}
-            </div>
+            </Link>
         );
     };
 
@@ -28,6 +39,7 @@ const Tabs: React.FC = () => {
                     <Tab key={tab.title} {...tab} />
                 ))}
             </section>
+
             <section className={styles.tabContent}>{tabContent}</section>
         </section>
     );

@@ -5,26 +5,43 @@ import { StockChartData } from "@/models/types/chart";
 import { StockValue } from "@/models/types/stock";
 import { TimeOption } from "@/models/types/time";
 import Session from "@/utils/sessionStorage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useQueryParams from "./useQueryParams";
 
 const useSetChartData = () => {
+    const { getCurrentDate } = useQueryParams();
     const [chartData, setChartData] = useState<StockChartData>(initDataChart);
-    const [selectedTimeframe, setSelectedTimeframe] = useState<TimeOption>(timeOptions[0]);
+    const [selectedTimeframe, setSelectedTimeframe] = useState<TimeOption | undefined>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const refLock = useRef(false);
 
     useEffect(() => {
-        if (chartData.data.length === 0 || chartData.labels.length === 0) {
-            const stockValue: StockValue[] | undefined = Session.get("stockValue");
-            if (stockValue) setData(stockValue);
-        }
-    }, []);
+        if (!refLock.current) {
+            refLock.current = true;
 
-    const handleChangeTimeframe = async (timeValue: TimeOption) => {
-        if (timeValue.label === selectedTimeframe.label) return;
+            if (!selectedTimeframe) {
+                const timeValue = timeOptions.find((option) => option.label === getCurrentDate());
+                if (timeValue) {
+                    handleChangeTimeframe(timeValue);
+                } else {
+                    if (chartData.data.length === 0 || chartData.labels.length === 0) {
+                        const stockValue: StockValue[] | undefined = Session.get("stockValue");
+                        if (stockValue) setData(stockValue);
+                        else handleChangeTimeframe();
+                    }
+                }
+            }
+        }
+    }, [selectedTimeframe]);
+
+    const handleChangeTimeframe = async (timeValue?: TimeOption) => {
+        if (timeValue && timeValue.label === selectedTimeframe?.label) return;
+        if (!timeValue) timeValue = selectedTimeframe;
+
         try {
             setIsLoading(true);
             setSelectedTimeframe(timeValue);
-            const queryString = new URLSearchParams(timeValue.value).toString();
+            const queryString = new URLSearchParams(timeValue?.value).toString();
             const response = await fetch(`/api/stock?${queryString}`, { method: "GET" });
             if (response) {
                 const stockValue = (await response.json()) as StockValue[];
@@ -34,6 +51,8 @@ const useSetChartData = () => {
         } catch (error) {
             console.log("Error fetching data", error);
             setIsLoading(false);
+        } finally {
+            refLock.current = false;
         }
     };
 

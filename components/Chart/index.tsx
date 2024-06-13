@@ -13,14 +13,14 @@ import { initChartData, initChartOptions } from "@/utils/chart";
 import { Line } from "react-chartjs-2";
 import styles from "./Chart.module.css";
 import { StockChartData } from "@/models/types/chart";
-import Loading from "../Loading/Loading";
+import LoadingChart from "../loading/LoadingChart";
 
 type ChartProps = {
     chartData: StockChartData;
     isLoading: boolean;
 };
 
-const Chart = ({ chartData, isLoading }: ChartProps) => {
+const Chart: React.FC<ChartProps> = ({ chartData, isLoading }) => {
     ChartJS.register(
         LinearScale,
         CategoryScale,
@@ -35,7 +35,7 @@ const Chart = ({ chartData, isLoading }: ChartProps) => {
     return (
         <section className={styles.chartContainer}>
             <Line data={initChartData(chartData)} options={initChartOptions(chartData.data)} />
-            {isLoading ? <Loading /> : null}
+            {isLoading ? <LoadingChart /> : null}
         </section>
     );
 };

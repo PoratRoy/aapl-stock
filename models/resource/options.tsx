@@ -17,6 +17,6 @@ export const timeOptions: TimeOption[] = [
 ];
 
 export const tabs: TabOption[] = [
-    { title: "Overview", content: <OverviewTab /> },
-    { title: "History", content: <HistoryTab /> },
+    { title: "Overview", path: "overview", content: <OverviewTab /> },
+    { title: "History", path: "history", content: <HistoryTab /> },
 ];

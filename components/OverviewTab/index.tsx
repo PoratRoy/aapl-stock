@@ -5,7 +5,7 @@ import Chart from "../Chart";
 import useSetChartData from "@/hooks/useSetChartData";
 import styles from "./OverviewTab.module.css";
 
-const OverviewTab = () => {
+const OverviewTab: React.FC = () => {
     const { handleChangeTimeframe, chartData, selectedTimeframe, isLoading } = useSetChartData();
 
     return (
