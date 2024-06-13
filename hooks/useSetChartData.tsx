@@ -7,6 +7,7 @@ import { TimeOption } from "@/models/types/time";
 import Session from "@/utils/sessionStorage";
 import { useEffect, useRef, useState } from "react";
 import useQueryParams from "./useQueryParams";
+import { toast } from "react-hot-toast";
 
 const useSetChartData = () => {
     const { getCurrentDate } = useQueryParams();
@@ -49,7 +50,8 @@ const useSetChartData = () => {
                 if (stockValue) setData(stockValue);
             }
         } catch (error) {
-            console.log("Error fetching data", error);
+            console.error("Error fetching data", error);
+            toast.error("Error fetching data, Try again later");
             setIsLoading(false);
         } finally {
             refLock.current = false;

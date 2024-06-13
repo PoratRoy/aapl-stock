@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./Loading.module.css";
+import styles from "./LoadingUI.module.css";
 import { TEXT_COLOR } from "@/models/constant/color";
 
-type LoadingProps = {
+type LoadingUIProps = {
     color?: string;
 };
 
-const Loading: React.FC<LoadingProps> = ({ color = TEXT_COLOR }) => {
+const LoadingUI: React.FC<LoadingUIProps> = ({ color = TEXT_COLOR }) => {
     return <div style={{ background: color }} className={styles.loading} />;
 };
 
-export default Loading;
+export default LoadingUI;
